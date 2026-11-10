@@ -3,163 +3,825 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Kushal’s not-quite-proper portfolio. Great at starting things. The rest is a work in progress. Allegedly.">
+<meta name="theme-color" content="#EAE5FF">
 <title>Portfolio (Probably)</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='8' fill='%23EAE5FF'/%3E%3Ctext x='20' y='30' text-anchor='middle' font-size='32' fill='%231B1340'%3E✦%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;800&family=Caveat:wght@600&display=swap" rel="stylesheet">
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/lenis@1.3.11/dist/lenis.min.js"></script>
 <style>
-:root{--bg:#EAE5FF;--ink:#1B1340;--yel:#FFD23F;--pink:#FF5C8A;--mint:#3DDC97;--card:#FFFFFF;color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#14102B;--ink:#EDE9FF;--card:#241C4D;color-scheme:dark}}
-:root[data-theme="dark"]{--bg:#14102B;--ink:#EDE9FF;--card:#241C4D;color-scheme:dark}
-html{scroll-padding-top:env(safe-area-inset-top,0px)}
-*{box-sizing:border-box;margin:0}
-body{background:var(--bg);color:var(--ink);font-family:'Bricolage Grotesque',system-ui,sans-serif;font-weight:500;overflow-x:hidden;line-height:1.35}
-.hand{font-family:'Caveat',cursive;font-weight:600}
-#meter{position:fixed;left:0;right:0;top:env(safe-area-inset-top,0px);z-index:20;padding:10px 16px;display:flex;gap:12px;align-items:center;font-size:13px;background:var(--bg)}
-#meter .bar{flex:1;height:10px;border:2px solid var(--ink);border-radius:9px;overflow:hidden}
-#meter .fill{height:100%;width:100%;background:var(--pink);transform-origin:left;transform:scaleX(1)}
-section{position:relative}
-.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:96px 6vw 40px}
-.hero h1{font-weight:800;font-size:clamp(44px,11vw,150px);line-height:.95;letter-spacing:-.03em;max-width:14ch}
-.hero h1 .c{display:inline-block;will-change:transform}
-.hero p{margin-top:28px;font-size:clamp(18px,2.4vw,28px);max-width:30ch}
-.hero .hand{font-size:clamp(24px,3vw,38px);color:var(--pink);margin-top:20px;transform:rotate(-3deg);display:inline-block}
-.h2{font-weight:800;font-size:clamp(34px,7vw,90px);letter-spacing:-.02em;line-height:1}
-.pin{height:100vh;overflow:hidden;display:flex;flex-direction:column;justify-content:center;padding-top:60px}
-.pin .h2{padding:0 6vw 28px}
-.track{display:flex;gap:24px;padding:0 6vw;width:max-content}
-.card{width:min(78vw,380px);min-height:300px;border:3px solid var(--ink);border-radius:26px;padding:24px;background:var(--card);display:flex;flex-direction:column;justify-content:space-between;box-shadow:8px 8px 0 var(--ink)}
-.card:nth-child(1){background:var(--yel);color:#1B1340}
-.card:nth-child(3){background:var(--mint);color:#1B1340}
-.card:nth-child(5){background:var(--pink);color:#1B1340}
-.card h3{font-size:28px;font-weight:800;line-height:1.05}
-.card small{font-size:15px;display:block;margin-top:12px}
-.card .hand{font-size:24px}
-.nope{padding:18vh 6vw}
-.nope ul{list-style:none;padding:0;margin-top:40px}
-.nope li{font-size:clamp(22px,4.4vw,52px);font-weight:800;position:relative;display:inline-block;margin:10px 0;--p:0}
-.nope li::after{content:"";position:absolute;left:-2%;right:-2%;top:54%;height:.12em;background:var(--pink);transform:scaleX(var(--p));transform-origin:left}
-.nope li+br+li{}
-.nope .note{display:block;font-size:22px;color:var(--pink);margin-bottom:6px}
-.marq{overflow:hidden;border-block:3px solid var(--ink);padding:16px 0;white-space:nowrap;background:var(--yel);color:#1B1340}
-.marq div{display:inline-block;font-weight:800;font-size:clamp(28px,5vw,60px);will-change:transform}
-.end{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;padding:80px 6vw}
-.end a{margin-top:36px;display:inline-block;font-weight:800;font-size:22px;padding:18px 30px;border-radius:60px;background:var(--ink);color:var(--bg);text-decoration:none;transition:transform .2s}
-.end a:hover,.end a:focus-visible{transform:rotate(-4deg) scale(1.06);outline:3px solid var(--pink);outline-offset:3px}
-#say{position:fixed;right:14px;bottom:calc(14px + env(safe-area-inset-bottom,0px));z-index:20;max-width:min(70vw,280px);background:var(--ink);color:var(--bg);padding:12px 16px;border-radius:18px 18px 4px 18px;font-size:15px}
-@media (prefers-reduced-motion:reduce){.nope li::after{transform:scaleX(1)}}
+:root {
+  --bg:#EAE5FF; --ink:#1B1340; --yel:#FFD23F; --pink:#FF5C8A;
+  --mint:#3DDC97; --card:#FFFFFF; --note:#A32650; --color-ink:#1B1340;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark) {
+  :root:not([data-theme="light"]) {
+    --bg:#14102B; --ink:#EDE9FF; --card:#241C4D; --note:#FF90B1;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg:#14102B; --ink:#EDE9FF; --card:#241C4D; --note:#FF90B1;
+  color-scheme:dark;
+}
+* { box-sizing:border-box; margin:0; }
+html { scroll-padding-top:64px; }
+html.lenis, html.lenis body { height:auto; }
+.lenis.lenis-smooth { scroll-behavior:auto !important; }
+.lenis.lenis-stopped { overflow:hidden; }
+body {
+  background:var(--bg); color:var(--ink); font-family:'Bricolage Grotesque',system-ui,sans-serif;
+  font-weight:500; line-height:1.35; overflow-x:clip;
+  padding-top:env(safe-area-inset-top,0px);
+}
+button, a { -webkit-tap-highlight-color:transparent; }
+button { font:inherit; color:inherit; cursor:pointer; }
+a { color:inherit; }
+a:focus-visible, button:focus-visible, [tabindex]:focus-visible {
+  outline:3px solid var(--note); outline-offset:6px;
+}
+::selection { background:var(--pink); color:var(--color-ink); }
+[hidden] { display:none !important; }
+.hand { font-family:'Caveat',cursive; font-weight:600; }
+.sr-only {
+  position:absolute; width:1px; height:1px; padding:0; margin:-1px;
+  overflow:hidden; clip-path:inset(50%); white-space:nowrap; border:0;
+}
+.skip-link {
+  position:fixed; top:64px; left:16px; z-index:100; padding:12px 18px;
+  border:3px solid var(--ink); background:var(--yel); color:var(--color-ink);
+  transform:translateY(-200px); font-weight:800;
+}
+.skip-link:focus { transform:translateY(0); }
+#meter {
+  position:fixed; inset:0 0 auto; z-index:30; padding:12px 6vw;
+  padding-top:calc(12px + env(safe-area-inset-top,0px));
+  display:flex; gap:16px; align-items:center; font-size:13px;
+  background:var(--bg); border-bottom:2px solid var(--ink);
+}
+#mlabel { flex:0 0 190px; }
+.bar { flex:1; height:10px; border:2px solid var(--ink); border-radius:9px; overflow:hidden; }
+.fill { height:100%; background:var(--pink); transform-origin:left; }
+section { position:relative; }
+.hero {
+  min-height:100vh; min-height:100svh; display:flex; flex-direction:column;
+  justify-content:center; padding:96px 6vw 68px; overflow:clip;
+}
+.hero h1 {
+  font-weight:800; font-size:clamp(44px,11vw,150px); line-height:.95;
+  letter-spacing:-.03em; max-width:14ch;
+}
+.word, .c, .glyph, .face { display:inline-block; }
+.hero p { margin-top:28px; font-size:clamp(18px,2.4vw,28px); max-width:30ch; }
+.hero .scroll-note {
+  font-size:clamp(24px,3vw,38px); color:var(--note); margin-top:20px;
+  transform:rotate(-3deg); align-self:flex-start;
+}
+.hero-socials { display:flex; flex-wrap:wrap; gap:12px; margin-top:28px; }
+.hero-socials a {
+  display:inline-flex; align-items:center; justify-content:center;
+  min-width:44px; min-height:44px; padding:9px 14px; border:3px solid var(--ink);
+  border-radius:999px; box-shadow:4px 4px 0 var(--ink); background:var(--yel);
+  color:var(--color-ink); font-size:14px; font-weight:800; text-decoration:none;
+  transition:transform .2s;
+}
+.hero-socials a:nth-child(2) { background:var(--mint); }
+.hero-socials a:nth-child(3) { background:var(--pink); }
+.hero-socials a:focus-visible { outline-color:var(--ink); }
+.hero-idle {
+  position:absolute; bottom:28px; left:6vw; font-size:clamp(22px,2vw,28px);
+  color:var(--note); opacity:0; transform:translateY(8px) rotate(-2deg);
+  pointer-events:none; transition:opacity .25s, transform .25s;
+}
+.hero-idle.is-visible { opacity:1; transform:translateY(0) rotate(-2deg); }
+.h2 { font-weight:800; font-size:clamp(34px,7vw,90px); letter-spacing:-.02em; line-height:1; transform-origin:left center; }
+.pin { padding:88px 0; }
+.pin .h2 { padding:0 6vw 12px; }
+.track { display:flex; flex-direction:column; gap:28px; padding:24px 6vw 32px; list-style:none; }
+.card-shell { width:100%; min-width:0; }
+.card-motion { height:100%; }
+.card {
+  width:100%; min-height:300px; border:3px solid var(--ink); border-radius:26px;
+  padding:24px; background:var(--card); display:flex; flex-direction:column;
+  justify-content:space-between; gap:28px; box-shadow:8px 8px 0 var(--ink);
+  transition:transform .25s cubic-bezier(.2,.8,.2,1);
+}
+.card-shell:nth-child(1) .card, .card-shell:nth-child(8) .card { background:var(--yel); color:var(--color-ink); }
+.card-shell:nth-child(3) .card, .card-shell:nth-child(7) .card { background:var(--mint); color:var(--color-ink); }
+.card-shell:nth-child(5) .card { background:var(--pink); color:var(--color-ink); }
+.card h3 { font-size:28px; font-weight:800; line-height:1.05; }
+.card small { font-size:15px; display:block; margin-top:12px; line-height:1.5; }
+.card .hand { font-size:24px; line-height:1.1; }
+.cards-caption { display:flex; align-items:center; gap:24px; margin:4px 6vw 0; }
+.cards-caption .hand { font-size:23px; color:var(--note); }
+.cards-progress { display:none; height:8px; flex:1; border:2px solid var(--ink); border-radius:6px; overflow:hidden; }
+.cards-progress span { display:block; height:100%; background:var(--mint); transform-origin:left; transform:scaleX(0); }
+#card-count { margin-left:auto; white-space:nowrap; font-size:14px; font-variant-numeric:tabular-nums; }
+.pin.is-horizontal {
+  height:100vh; height:100svh; min-height:600px; padding:64px 0 80px;
+  display:flex; flex-direction:column; justify-content:center; overflow:hidden;
+}
+.is-horizontal .track { flex-direction:row; gap:24px; width:max-content; padding-block:28px 36px; }
+.is-horizontal .card-shell { width:min(78vw,380px); flex-shrink:0; }
+.is-horizontal .card { min-height:310px; }
+.is-horizontal .cards-progress { display:block; }
+.nope { padding:18vh 6vw; }
+.nope .h2 { max-width:15ch; }
+.nope ul { list-style:none; padding:0; margin-top:40px; }
+.nope li { display:flex; flex-wrap:wrap; align-items:center; gap:6px 28px; padding:14px 0; }
+.nope-text {
+  position:relative; display:inline-block; font-size:clamp(22px,4.4vw,52px);
+  font-weight:800; line-height:1.2; --strike:1; --strike-angle:-2deg;
+}
+.nope-text::after {
+  content:""; position:absolute; left:-2%; right:-2%; top:54%; height:.12em;
+  background:var(--pink); pointer-events:none;
+  transform:rotate(var(--strike-angle)) scaleX(var(--strike)); transform-origin:left;
+}
+.aside { display:inline-block; font-size:clamp(22px,2.6vw,30px); color:var(--note); transform:rotate(-4deg); }
+.marq {
+  position:relative; overflow:hidden; border-block:3px solid var(--ink);
+  padding:12px 0; background:var(--yel); color:var(--color-ink);
+}
+.marq-row { overflow:hidden; padding:2px 0; }
+.marq-track { display:flex; width:max-content; font-weight:800; font-size:clamp(28px,5vw,60px); line-height:1.3; }
+.marq-copy { display:block; white-space:nowrap; flex-shrink:0; padding-right:.5em; }
+.marq-row:nth-child(2) { color:var(--yel); background:var(--color-ink); }
+.marq-pause {
+  position:absolute; z-index:2; top:50%; left:50%; padding:10px 18px;
+  border:3px solid var(--color-ink); border-radius:12px; background:var(--pink);
+  color:var(--color-ink); font-size:24px; white-space:nowrap; pointer-events:none;
+  opacity:0; transform:translate(-50%,-40%) rotate(-3deg);
+  transition:opacity .2s, transform .2s;
+}
+.marq.is-paused .marq-pause { opacity:1; transform:translate(-50%,-50%) rotate(-3deg); }
+.end {
+  min-height:100vh; min-height:100svh; display:flex; flex-direction:column;
+  justify-content:center; align-items:flex-start; padding:100px 6vw 130px;
+  padding-bottom:calc(130px + env(safe-area-inset-bottom,0px));
+}
+.end-note { font-size:30px; margin-top:14px; color:var(--note); }
+.contact-grid {
+  display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:24px;
+  width:100%; margin-top:48px; padding:0; list-style:none;
+}
+.contact-shell { min-width:0; }
+.contact-reveal, .contact-magnet { height:100%; }
+.contact-card {
+  display:flex; flex-direction:column; justify-content:space-between; gap:28px;
+  height:100%; min-height:230px; padding:24px; border:3px solid var(--ink);
+  border-radius:26px; box-shadow:8px 8px 0 var(--ink); text-decoration:none;
+  color:var(--color-ink); background:var(--yel);
+  transition:transform .25s cubic-bezier(.2,.8,.2,1);
+}
+.contact-shell:nth-child(2) .contact-card { background:var(--pink); }
+.contact-shell:nth-child(3) .contact-card { background:var(--mint); }
+.contact-card strong { display:flex; justify-content:space-between; align-items:center; font-size:clamp(26px,2.6vw,38px); font-weight:800; }
+.contact-card .hand { font-size:24px; line-height:1.15; overflow-wrap:anywhere; }
+.contact-card:focus-visible { outline-color:var(--ink); }
+.copyright { margin-top:48px; font-size:14px; }
+#say {
+  position:fixed; right:14px; bottom:calc(14px + env(safe-area-inset-bottom,0px));
+  z-index:25; width:280px; max-width:70vw; background:var(--ink); color:var(--bg);
+  padding:12px 16px; border-radius:18px 18px 4px 18px; font-size:20px;
+  pointer-events:none; line-height:1.15;
+}
+#say-copy { opacity:0; }
+#say-typed { position:absolute; inset:12px 16px; }
+#cursor {
+  display:none; position:fixed; top:0; left:0; z-index:80;
+  width:14px; height:14px; border:2px solid var(--ink); border-radius:50%;
+  background:var(--pink); pointer-events:none; opacity:0;
+}
+#toast {
+  position:fixed; z-index:70; left:50%; bottom:110px; width:max-content;
+  max-width:calc(100vw - 40px); padding:16px 24px; border:3px solid var(--ink);
+  border-radius:18px; background:var(--mint); color:var(--color-ink);
+  box-shadow:6px 6px 0 var(--ink); font-size:24px; text-align:center;
+  opacity:0; transform:translate(-50%,12px) rotate(-2deg); pointer-events:none;
+  transition:opacity .2s, transform .2s;
+}
+#toast.is-visible { opacity:1; transform:translate(-50%,0) rotate(-2deg); }
+#loader {
+  position:fixed; inset:0; z-index:90; display:grid; place-items:center;
+  background:var(--bg); padding:24px; pointer-events:none;
+  transition:opacity .18s, transform .18s;
+}
+.loader-panel {
+  width:min(100%,420px); padding:28px; border:3px solid var(--ink);
+  border-radius:26px; box-shadow:8px 8px 0 var(--ink); background:var(--yel);
+  color:var(--color-ink); transform:rotate(-2deg);
+}
+.loader-panel .hand { font-size:32px; }
+.loader-bar { height:10px; border:2px solid var(--color-ink); margin:24px 0; overflow:hidden; }
+.loader-fill { display:block; height:100%; background:var(--pink); transform:scaleX(0); transform-origin:left; transition:transform .85s ease-out; }
+#loader.is-ready .loader-fill { transform:scaleX(1); }
+#loader.is-done { opacity:0; transform:translateY(-12px); }
+#skip-loader { pointer-events:auto; border:2px solid var(--color-ink); padding:8px 14px; background:var(--mint); border-radius:8px; color:var(--color-ink); }
+@media (hover:hover) and (pointer:fine) and (prefers-reduced-motion:no-preference) {
+  .hero-socials a:hover { transform:translateY(-3px) rotate(-2deg); }
+  .card:hover { transform:translateY(-9px) rotate(-1deg); }
+  .contact-card:hover { transform:translateY(-7px) rotate(-1deg); }
+  .has-cursor #cursor { display:block; }
+}
+@media (max-width:767px) {
+  #meter { padding-inline:16px; gap:12px; font-size:12px; }
+  #mlabel { flex-basis:168px; }
+  .hero { padding-bottom:100px; }
+  .pin.is-horizontal { padding-top:60px; padding-bottom:90px; }
+  .pin .h2 { max-width:12ch; }
+  .is-horizontal .card { min-height:320px; }
+  .cards-caption { flex-wrap:wrap; gap:10px 18px; }
+  .cards-caption .hand { font-size:21px; }
+  .cards-progress { order:3; flex-basis:100%; }
+  .nope { padding-block:100px; }
+  .nope li { gap:9px 20px; padding-block:18px; }
+  .aside { flex-basis:100%; }
+  .contact-grid { grid-template-columns:1fr; gap:28px; margin-top:36px; }
+  .contact-card { min-height:190px; }
+  .end { padding-top:90px; }
+  .end-note { font-size:26px; }
+  .marq-pause { font-size:21px; }
+}
+@media (min-height:600px) and (max-height:699px) {
+  .pin.is-horizontal { padding-block:54px 68px; }
+  .is-horizontal .track { padding-block:14px 24px; }
+  .is-horizontal .card { min-height:280px; padding:20px; gap:20px; }
+  .is-horizontal .card h3 { font-size:26px; }
+  .is-horizontal .card small { font-size:14px; }
+  .is-horizontal .card .hand { font-size:22px; }
+  .is-horizontal .cards-caption .hand { font-size:20px; }
+}
+@media (prefers-reduced-motion:reduce) {
+  *, *::before, *::after { transition:none !important; }
+  .hero-idle, #loader, #cursor { display:none !important; }
+  .nope-text::after { transform:rotate(-2deg) scaleX(1) !important; }
+  .marq-track { transform:none !important; }
+}
 </style>
 </head>
 <body>
-<div id="meter"><span id="mlabel">Attention span</span><div class="bar"><div class="fill" id="fill"></div></div></div>
-
-<section class="hero">
-  <h1 id="h1">Hi. This is my portfolio.</h1>
-  <p>I’m very professional. Nothing here is a coincidence, except all of it.</p>
-  <span class="hand">(scroll down, or don’t, I’m not your boss)</span>
-</section>
-
-<section class="pin" id="pin">
-  <h2 class="h2">Things I started</h2>
-  <div class="track" id="track">
-    <div class="card"><div><h3>The Portfolio</h3><small>Redesigned 14 times. Shipped 0 times. You’re looking at the 15th.</small></div><span class="hand">status: it exists, so, success</span></div>
-    <div class="card"><div><h3>Productivity App</h3><small>Has a beautiful logo. Has no features. The logo is great.</small></div><span class="hand">status: vibes only</span></div>
-    <div class="card"><div><h3>Learn Guitar</h3><small>Bought the guitar. It’s decorating the room nicely.</small></div><span class="hand">status: furniture</span></div>
-    <div class="card"><div><h3>The Startup</h3><small>Raised zero rupees. Pitched it to the wall. The wall was supportive.</small></div><span class="hand">status: pre-pre-seed</span></div>
-    <div class="card"><div><h3>This Website</h3><small>Built with AI because I could. Scroll animations because I deserve them.</small></div><span class="hand">status: you’re in it</span></div>
+<a class="skip-link" href="#main">Skip the distractions</a>
+<div id="loader" hidden aria-label="A very brief distraction">
+  <div class="loader-panel">
+    <p class="hand">Loading… or not, we’ll see.</p>
+    <div class="loader-bar" aria-hidden="true"><span class="loader-fill"></span></div>
+    <button id="skip-loader" type="button">Skip the effort ↗</button>
   </div>
-</section>
+</div>
+<header id="meter">
+  <span id="mlabel">Attention span</span>
+  <div class="bar" role="progressbar" aria-label="Remaining attention span" aria-valuemin="0" aria-valuemax="100" aria-valuenow="100"><div class="fill" id="fill"></div></div>
+</header>
+<main id="main" tabindex="-1">
+  <section class="hero" aria-labelledby="h1">
+    <h1 id="h1" aria-label="Hi. This is my portfolio.">Hi. This is my portfolio.</h1>
+    <p>I’m very professional. Nothing here is a coincidence, except all of it.</p>
+    <span class="hand scroll-note">(scroll down, or don’t, I’m not your boss)</span>
+    <nav class="hero-socials" aria-label="Find Kushal">
+      <a href="https://www.instagram.com/kesuuydv/" target="_blank" rel="noopener noreferrer" aria-label="Kushal on Instagram (opens in a new tab)">Instagram</a>
+      <a href="https://github.com/KushalxYadav" target="_blank" rel="noopener noreferrer" aria-label="Kushal on GitHub (opens in a new tab)">GitHub</a>
+      <a href="mailto:kushalyadavx0l@gmail.com" aria-label="Email Kushal">Email</a>
+    </nav>
+    <span class="hand hero-idle" aria-hidden="true">Still here? I got distracted too.</span>
+  </section>
 
-<section class="nope">
-  <h2 class="h2">Things I deliberately did not do</h2>
-  <ul>
-    <li><span class="note hand">on purpose, obviously</span>Reply to that message</li><br>
-    <li>Start before the deadline</li><br>
-    <li>Use the planner I bought</li><br>
-    <li>Finish this sentence</li><br>
-    <li>Sleep at a normal time</li>
+  <section class="pin" id="pin" aria-labelledby="started-title">
+    <h2 class="h2" id="started-title">Things I started</h2>
+    <ul class="track" id="track" aria-label="Eight things in various states of abandonment">
+      <li class="card-shell"><div class="card-motion"><article class="card"><div class="card-copy"><h3>The Portfolio</h3><small>Redesigned 14 times. Shipped 0 times. You’re looking at the 15th.</small></div><span class="hand">status: it exists, so, success</span></article></div></li>
+      <li class="card-shell"><div class="card-motion"><article class="card"><div class="card-copy"><h3>Productivity App</h3><small>Has a beautiful logo. Has no features. The logo is great.</small></div><span class="hand">status: vibes only</span></article></div></li>
+      <li class="card-shell"><div class="card-motion"><article class="card"><div class="card-copy"><h3>Learn Guitar</h3><small>Bought the guitar. It’s decorating the room nicely.</small></div><span class="hand">status: furniture</span></article></div></li>
+      <li class="card-shell"><div class="card-motion"><article class="card"><div class="card-copy"><h3>The Startup</h3><small>Raised zero rupees. Pitched it to the wall. The wall was supportive.</small></div><span class="hand">status: pre-pre-seed</span></article></div></li>
+      <li class="card-shell"><div class="card-motion"><article class="card"><div class="card-copy"><h3>This Website</h3><small>Built with AI because I could. Scroll animations because I deserve them.</small></div><span class="hand">status: you’re in it</span></article></div></li>
+      <li class="card-shell"><div class="card-motion"><article class="card"><div class="card-copy"><h3>Second Brain</h3><small>An app where I write everything and never open it again. First note: “Build Second Brain.”</small></div><span class="hand">status: second brain already hanging</span></article></div></li>
+      <li class="card-shell"><div class="card-motion"><article class="card"><div class="card-copy"><h3>Stoicism</h3><small>Read one chapter, now it’s a personality. “Don’t worry about what you can’t control.” Then the WiFi got slow.</small></div><span class="hand">status: practice in progress</span></article></div></li>
+      <li class="card-shell"><div class="card-motion"><article class="card"><div class="card-copy"><h3>Simulation Theory</h3><small>If we’re in a simulation, dear developer, please fix my schedule. And add some RAM.</small></div><span class="hand">status: ticket raised</span></article></div></li>
+    </ul>
+    <div class="cards-caption">
+      <span class="hand">a collection of almosts ↗</span>
+      <div class="cards-progress" aria-hidden="true"><span id="cards-fill"></span></div>
+      <span id="card-count">8 / 8 abandoned</span>
+    </div>
+  </section>
+
+  <section class="nope" aria-labelledby="nope-title">
+    <h2 class="h2" id="nope-title">Things I deliberately did not do</h2>
+    <ul>
+      <li><span class="nope-text">Reply to that message</span><span class="aside hand">on purpose, obviously</span></li>
+      <li><span class="nope-text">Start before the deadline</span><span class="aside hand">where’s the plot twist in that?</span></li>
+      <li><span class="nope-text">Use the planner I bought</span><span class="aside hand">too pretty to ruin with plans</span></li>
+      <li><span class="nope-text">Finish this sentence</span><span class="aside hand">I was going to, but</span></li>
+      <li><span class="nope-text">Sleep at a normal time</span><span class="aside hand">3 a.m. is technically a time</span></li>
+    </ul>
+  </section>
+
+  <div class="marq" tabindex="0" role="group" aria-label="Distracted thoughts. Focus or hover to pause.">
+    <p class="sr-only">Hyperfocus on useless things. Great at starting. Deadline-driven. 47 tabs open. Wait, what? Big ideas. Small attention span. Still buffering. Productively procrastinating. I’ll do it tomorrow.</p>
+    <div class="marq-row" aria-hidden="true"><div class="marq-track" id="m1"><span class="marq-copy">Hyperfocus on useless things &nbsp;✦&nbsp; Great at starting &nbsp;✦&nbsp; Deadline-driven &nbsp;✦&nbsp; 47 tabs open &nbsp;✦&nbsp; Wait, what? &nbsp;✦&nbsp;</span></div></div>
+    <div class="marq-row" aria-hidden="true"><div class="marq-track" id="m2"><span class="marq-copy">Big ideas &nbsp;✦&nbsp; Small attention span &nbsp;✦&nbsp; Still buffering &nbsp;✦&nbsp; Productively procrastinating &nbsp;✦&nbsp; I’ll do it tomorrow &nbsp;✦&nbsp;</span></div></div>
+    <span class="hand marq-pause" aria-hidden="true">Paused. Finally, a boundary.</span>
+  </div>
+</main>
+
+<footer class="end" aria-labelledby="contact-title">
+  <h2 class="h2" id="contact-title">Want to work together?</h2>
+  <p class="hand end-note">I’ll reply in 3 to 5 business weeks. Maybe.</p>
+  <ul class="contact-grid" aria-label="Find Kushal, eventually">
+    <li class="contact-shell"><div class="contact-reveal"><div class="contact-magnet"><a class="contact-card" href="https://www.instagram.com/kesuuydv/" target="_blank" rel="noopener noreferrer" aria-label="Kushal on Instagram (opens in a new tab)"><strong>Instagram <span aria-hidden="true">↗</span></strong><span class="hand">@kesuuydv. Reels coming soon. Allegedly.</span><span class="sr-only">(opens in a new tab)</span></a></div></div></li>
+    <li class="contact-shell"><div class="contact-reveal"><div class="contact-magnet"><a class="contact-card" href="https://github.com/KushalxYadav" target="_blank" rel="noopener noreferrer" aria-label="Kushal on GitHub (opens in a new tab)"><strong>GitHub <span aria-hidden="true">↗</span></strong><span class="hand">KushalxYadav. Lots of ‘initial commit’, not much after.</span><span class="sr-only">(opens in a new tab)</span></a></div></div></li>
+    <li class="contact-shell"><div class="contact-reveal"><div class="contact-magnet"><a class="contact-card" href="mailto:kushalyadavx0l@gmail.com" aria-label="Email Kushal"><strong>Email <span aria-hidden="true">↗</span></strong><span class="hand">kushalyadavx0l@gmail.com. I’ll see it eventually.</span></a></div></div></li>
   </ul>
-</section>
+  <p class="copyright">© Kushal. All sarcasm. Or is it?</p>
+</footer>
 
-<div class="marq"><div id="m1">Hyperfocus on useless things &nbsp;✦&nbsp; Great at starting &nbsp;✦&nbsp; Deadline-driven &nbsp;✦&nbsp; 47 tabs open &nbsp;✦&nbsp; Wait, what? &nbsp;✦&nbsp; </div></div>
+<div id="say" class="hand" aria-hidden="true"><span id="say-copy">Oh, you actually opened it. Bold.</span><span id="say-typed">Oh, you actually opened it. Bold.</span></div>
+<div id="cursor" aria-hidden="true"></div>
+<div id="toast" class="hand" role="status" aria-live="polite" aria-atomic="true"></div>
 
-<section class="end">
-  <h2 class="h2">Want to work together?</h2>
-  <p class="hand" style="font-size:30px;margin-top:14px;color:var(--pink)">I’ll reply in 3 to 5 business weeks. Maybe.</p>
-  <a href="mailto:you@example.com">Email me (I’ll see it eventually)</a>
-</section>
-
-<div id="say" class="hand" style="font-size:20px">Oh, you actually opened it. Bold.</div>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <script>
-(function(){
-  var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
-  // tab title gets distracted
-  var t0=document.title;
-  document.addEventListener('visibilitychange',function(){document.title=document.hidden?'Come back, I was talking!':t0;});
+// The loader owns its timer, so a slow or unavailable CDN can never trap anyone.
+(function () {
+  const loader = document.getElementById('loader');
+  const skip = document.getElementById('skip-loader');
+  let finished = false;
+  let resolveReady;
+  window.portfolioReady = new Promise(resolve => { resolveReady = resolve; });
+  function finish() {
+    if (finished) return;
+    finished = true;
+    loader.classList.add('is-done');
+    window.removeEventListener('wheel', finish);
+    window.removeEventListener('touchstart', finish);
+    document.removeEventListener('keydown', onKey);
+    if (document.activeElement === skip) document.getElementById('main').focus({preventScroll:true});
+    setTimeout(() => { loader.hidden = true; resolveReady(); }, 180);
+  }
+  function onKey(event) { if (['Escape', 'Enter', ' ', 'Tab'].includes(event.key)) finish(); }
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches || window.scrollY > 0 || location.hash) {
+    loader.hidden = true;
+    finished = true;
+    resolveReady();
+  } else {
+    loader.hidden = false;
+    requestAnimationFrame(() => loader.classList.add('is-ready'));
+    skip.addEventListener('click', finish, {once:true});
+    window.addEventListener('wheel', finish, {passive:true});
+    window.addEventListener('touchstart', finish, {passive:true});
+    document.addEventListener('keydown', onKey);
+    setTimeout(finish, 950);
+  }
+})();
 
-  // fix list markup: drop stray note from li text
-  var say=document.getElementById('say'),fill=document.getElementById('fill'),ml=document.getElementById('mlabel');
-  var lines=[[0,'Oh, you actually opened it. Bold.'],[.12,'Look at those cards. I made them. Allegedly.'],[.4,'Still scrolling? Impressive focus. Unlike me.'],[.6,'Crossed out items = done. Not doing is also a skill.'],[.85,'You’re almost at the end. I’m not ready either.']];
-  var labels=[[0,'Attention span'],[.3,'Attention span (wobbling)'],[.6,'Attention span (squirrel!)'],[.9,'Attention span (gone)']];
-  function pick(arr,p){var r=arr[0][1];arr.forEach(function(a){if(p>=a[0])r=a[1];});return r;}
+document.addEventListener('DOMContentLoaded', function () {
+  'use strict';
+  const $ = selector => document.querySelector(selector);
+  const $$ = selector => Array.from(document.querySelectorAll(selector));
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)');
+  const hero = $('.hero');
+  const h1 = $('#h1');
+  const pin = $('#pin');
+  const track = $('#track');
+  const fill = $('#fill');
+  const meter = $('.bar');
+  const label = $('#mlabel');
+  const sayCopy = $('#say-copy');
+  const sayTyped = $('#say-typed');
+  const idle = $('.hero-idle');
+  const marquee = $('.marq');
+  const cardCount = $('#card-count');
+  const cardsFill = $('#cards-fill');
+  const originalTitle = document.title;
+  const lines = [
+    [0, 'Oh, you actually opened it. Bold.'],
+    [.07, 'A strong start. Historically, my favourite part.'],
+    [.15, 'Look at those cards. I made them. Allegedly.'],
+    [.24, 'Another idea. Absolutely no follow-through.'],
+    [.33, 'Still scrolling? Impressive focus. Unlike me.'],
+    [.42, 'The second brain has also requested a break.'],
+    [.51, 'Eight ideas. One very tired browser tab.'],
+    [.60, 'Not doing is also a skill. I’ve been practising.'],
+    [.70, 'Crossed out items = done. Convenient, right?'],
+    [.82, 'You’re almost at the end. I’m not ready either.'],
+    [.93, 'Say hello. I’ll add replying to my planner.']
+  ];
+  const labels = [[0, 'Attention span'], [.3, 'Attention span (wobbling)'], [.6, 'Attention span (squirrel!)'], [.9, 'Attention span (gone)']];
+  const pick = (entries, progress) => entries.reduce((value, entry) => progress >= entry[0] ? entry[1] : value, entries[0][1]);
+  let maxScroll = 1;
+  let heroBottom = 1;
+  let hudFrame = 0;
+  let currentLine = lines[0][1];
+  let typeTimer;
+  let idleTimer;
+  let idleShown = false;
+  let lastMeterValue = -1;
+  let toastTimer;
+  let messageUntil = 0;
 
-  if(!window.gsap||reduce){
+  // These features work with native scrolling, reduced motion, or no animation CDN.
+  document.addEventListener('visibilitychange', () => {
+    document.title = document.hidden ? 'Come back, I was talking!' : originalTitle;
+    if (document.hidden) clearTimeout(idleTimer);
+    else { queueHUD(); armIdle(); }
+  });
+  function typeLine(text) {
+    clearTimeout(typeTimer);
+    sayCopy.textContent = text; // Full invisible copy reserves space throughout typing.
+    if (reduce.matches) { sayTyped.textContent = text; return; }
+    let index = 0;
+    sayTyped.textContent = '';
+    function type() {
+      index = Math.min(index + 2, text.length);
+      sayTyped.textContent = text.slice(0, index);
+      if (index < text.length) typeTimer = setTimeout(type, 24);
+    }
+    type();
+  }
+  function updateHUD() {
+    hudFrame = 0;
+    const progress = Math.max(0, Math.min(1, window.scrollY / maxScroll));
+    const remaining = Math.max(.05, Math.min(1, 1 - progress * .95 + Math.sin(progress * 60) * .04));
+    fill.style.transform = 'scaleX(' + remaining + ')';
+    const value = Math.round(remaining * 100);
+    if (value !== lastMeterValue) { meter.setAttribute('aria-valuenow', value); lastMeterValue = value; }
+    const nextLabel = pick(labels, progress);
+    if (label.textContent !== nextLabel) label.textContent = nextLabel;
+    const nextLine = pick(lines, progress);
+    if (nextLine !== currentLine && performance.now() > messageUntil) {
+      currentLine = nextLine;
+      typeLine(nextLine);
+    }
+  }
+  function queueHUD() { if (!hudFrame) hudFrame = requestAnimationFrame(updateHUD); }
+  function measurePage() {
+    maxScroll = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+    heroBottom = hero.offsetTop + hero.offsetHeight;
+    queueHUD();
+  }
+  function armIdle() {
+    clearTimeout(idleTimer);
+    idle.classList.remove('is-visible');
+    if (!reduce.matches && !idleShown && window.scrollY < heroBottom * .65 && !document.hidden) {
+      idleTimer = setTimeout(() => { idle.classList.add('is-visible'); idleShown = true; }, 4000);
+    }
+  }
+  window.addEventListener('scroll', () => { queueHUD(); armIdle(); }, {passive:true});
+  window.addEventListener('resize', measurePage, {passive:true});
+  reduce.addEventListener('change', () => { clearTimeout(typeTimer); sayTyped.textContent = currentLine; armIdle(); measurePage(); });
+  window.portfolioReady.then(armIdle);
+  measurePage();
+
+  function surprise(text) {
+    const toast = $('#toast');
+    clearTimeout(toastTimer);
+    toast.textContent = text;
+    toast.classList.add('is-visible');
+    messageUntil = performance.now() + 4500;
+    toastTimer = setTimeout(() => { toast.classList.remove('is-visible'); toast.textContent = ''; }, 4500);
+  }
+  // Two tiny rewards for avoiding the actual work.
+  let clicks = 0;
+  let clickTimer;
+  h1.addEventListener('click', () => {
+    clearTimeout(clickTimer);
+    clicks += 1;
+    if (clicks === 5) { surprise('Five clicks. Zero projects finished. Consistent.'); clicks = 0; }
+    clickTimer = setTimeout(() => { clicks = 0; }, 2400);
+  });
+  const konami = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];
+  let keyIndex = 0;
+  let lastKeyTime = 0;
+  document.addEventListener('keydown', event => {
+    if ((event.target instanceof Element && event.target.closest('input, textarea, select, [contenteditable]')) || event.metaKey || event.ctrlKey || event.altKey) return;
+    const key = event.key.length === 1 ? event.key.toLowerCase() : event.key;
+    if (performance.now() - lastKeyTime > 3000) keyIndex = 0;
+    lastKeyTime = performance.now();
+    keyIndex = key === konami[keyIndex] ? keyIndex + 1 : (key === konami[0] ? 1 : 0);
+    if (keyIndex === konami.length) { surprise('Cheat code accepted. Motivation DLC still unavailable.'); keyIndex = 0; }
+  });
+
+  // A failed GSAP or ScrollTrigger request leaves the stacked, complete site intact.
+  if (!window.gsap || !window.ScrollTrigger) {
+    if (document.fonts) document.fonts.ready.then(measurePage);
     return;
   }
   gsap.registerPlugin(ScrollTrigger);
+  ScrollTrigger.config({ignoreMobileResize:true});
+  const mm = gsap.matchMedia();
+  let entered = false;
+  let refreshPage = () => { ScrollTrigger.refresh(); measurePage(); };
 
-  // hero: split into chars that drift apart as you scroll
-  var h1=document.getElementById('h1'),txt=h1.textContent;h1.setAttribute('aria-label',txt);h1.textContent='';
-  txt.split(' ').forEach(function(w,wi,all){
-    var ws=document.createElement('span');ws.style.display='inline-block';ws.setAttribute('aria-hidden','true');
-    w.split('').forEach(function(ch){var s=document.createElement('span');s.className='c';s.textContent=ch;ws.appendChild(s);});
-    h1.appendChild(ws);if(wi<all.length-1)h1.appendChild(document.createTextNode(' '));
-  });
-  gsap.from('.c',{y:80,opacity:0,rotate:function(){return gsap.utils.random(-25,25);},stagger:.025,duration:.9,ease:'back.out(2)'});
-  gsap.to('.c',{
-    y:function(){return gsap.utils.random(-200,260);},
-    x:function(){return gsap.utils.random(-140,140);},
-    rotate:function(){return gsap.utils.random(-70,70);},
-    opacity:.15,ease:'none',
-    scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:true}
+  mm.add({
+    motion:'(prefers-reduced-motion: no-preference)',
+    desktop:'(min-width: 768px)',
+    mobile:'(max-width: 767px)',
+    tall:'(min-height: 600px)',
+    fine:'(hover: hover) and (pointer: fine)'
+  }, context => {
+    if (!context.conditions.motion) { measurePage(); return; }
+    const desktop = context.conditions.desktop;
+    const cleanups = [];
+    function listen(target, event, handler, options) {
+      target.addEventListener(event, handler, options);
+      cleanups.push(() => target.removeEventListener(event, handler, options));
+    }
+    let lenis;
+    let ticker;
+    let active = true;
+    // Native touch scrolling stays native. Desktop wheel motion shares GSAP’s clock.
+    if (window.Lenis) {
+      try {
+        lenis = new Lenis({lerp:.1, smoothWheel:true, syncTouch:false, anchors:true, autoRaf:false});
+        lenis.on('scroll', ScrollTrigger.update);
+        ticker = time => lenis.raf(time * 1000);
+        gsap.ticker.add(ticker);
+        gsap.ticker.lagSmoothing(0);
+      } catch (_) { if (lenis) lenis.destroy(); lenis = null; }
+    }
+
+    // Each transform has a separate layer: entrance/scatter (.c), pointer (.glyph).
+    const headline = h1.textContent;
+    h1.textContent = '';
+    headline.split(' ').forEach((word, index, words) => {
+      const wrapper = document.createElement('span');
+      wrapper.className = 'word';
+      wrapper.setAttribute('aria-hidden', 'true');
+      Array.from(word).forEach(char => {
+        const letter = document.createElement('span');
+        letter.className = 'c';
+        const glyph = document.createElement('span');
+        glyph.className = 'glyph';
+        const face = document.createElement('span');
+        face.className = 'face';
+        face.textContent = char;
+        glyph.appendChild(face);
+        letter.appendChild(glyph);
+        wrapper.appendChild(letter);
+      });
+      h1.appendChild(wrapper);
+      if (index < words.length - 1) h1.appendChild(document.createTextNode(' '));
+    });
+    const letters = $$('.c');
+    const scatter = letters.map((_, i) => ({
+      x:Math.sin(i * 2.4) * (desktop ? 130 : 38),
+      y:Math.cos(i * 1.8) * (desktop ? 190 : 76),
+      rotation:Math.sin(i * 3.1) * 52
+    }));
+    const entrance = gsap.timeline({paused:true});
+    if (!entered && window.scrollY < 80) {
+      entrance.from($$('.face'), {y:36, rotation:5, opacity:0, stagger:.018, duration:.65, ease:'power3.out'})
+        .from(['.hero p', '.scroll-note'], {y:15, opacity:0, stagger:.08, duration:.45}, .28);
+      window.portfolioReady.then(() => { if (active) entrance.play(); });
+      entered = true;
+    }
+    gsap.to(letters, {
+      x:i => scatter[i].x, y:i => scatter[i].y, rotation:i => scatter[i].rotation,
+      opacity:.12, ease:'none', immediateRender:false,
+      scrollTrigger:{trigger:hero, start:'top top', end:'bottom top', scrub:true,
+        onUpdate:self => { if (self.progress > .025) entrance.progress(1); }}
+    });
+
+    let horizontal;
+    if (context.conditions.tall) {
+      pin.classList.add('is-horizontal');
+      const distance = () => Math.max(0, track.scrollWidth - pin.clientWidth);
+      const setProgress = gsap.quickSetter(cardsFill, 'scaleX');
+      let shown = 0;
+      function updateCards() {
+        const progress = horizontal ? horizontal.progress() : 0;
+        setProgress(progress);
+        const count = 1 + Math.round(progress * 7);
+        if (count !== shown) { cardCount.textContent = count + ' / 8 abandoned'; shown = count; }
+      }
+      horizontal = gsap.to(track, {
+        x:() => -distance(), ease:'none', onUpdate:updateCards,
+        scrollTrigger:{id:'abandoned-cards', trigger:pin, start:'top top', pin:true,
+          scrub:desktop ? .65 : .3, anticipatePin:1,
+          end:() => '+=' + Math.round(distance() * (desktop ? 1.1 : .95)),
+          invalidateOnRefresh:true, onRefresh:updateCards}
+      });
+      updateCards();
+      // The unmoving shell is the trigger; only its children tilt and drift.
+      $$('.card-shell').forEach((shell, i) => {
+        const card = shell.querySelector('.card-motion');
+        const tilt = i % 2 ? 1 : -1;
+        gsap.timeline({scrollTrigger:{trigger:shell, containerAnimation:horizontal,
+          start:'left right', end:'right left', scrub:true}})
+          .fromTo(card, {rotation:tilt * (desktop ? 5 : 2.5), scale:.94, y:12},
+            {rotation:-tilt * (desktop ? 5 : 2.5), scale:1, y:-6, duration:1, ease:'none'})
+          .fromTo(card.querySelector('.card-copy'), {x:desktop ? 10 : 5},
+            {x:desktop ? -10 : -5, duration:1, ease:'none'}, 0);
+      });
+    }
+
+    $$('.nope li').forEach((item, i) => {
+      const text = item.querySelector('.nope-text');
+      gsap.timeline({scrollTrigger:{trigger:item, start:'top 78%', end:'top 48%', scrub:true}})
+        .fromTo(text, {'--strike':0, '--strike-angle':'1deg'},
+          {'--strike':1, '--strike-angle':(i % 2 ? '2deg' : '-2deg'), ease:'none', duration:1})
+        .from(item.querySelector('.aside'), {opacity:0, x:-8, rotation:2, ease:'power1.out', duration:.24}, .92);
+    });
+    gsap.from('.contact-reveal', {y:42, rotation:i => (i - 1) * 3, opacity:0, duration:.65,
+      stagger:.12, ease:'back.out(1.35)',
+      scrollTrigger:{trigger:'.contact-grid', start:'top 90%', once:true}});
+
+    // Measured only at setup/refresh; the frame loop writes transforms only.
+    const rows = $$('.marq-track').map((element, i) => {
+      const original = element.firstElementChild;
+      const clone = original.cloneNode(true);
+      clone.setAttribute('aria-hidden', 'true');
+      element.appendChild(clone);
+      return {element, clone, width:0, phase:i ? .5 : 0, direction:i ? 1 : -1,
+        setX:gsap.quickSetter(element, 'x', 'px'), setSkew:gsap.quickSetter(element, 'skewX', 'deg')};
+    });
+    function measureRows() { rows.forEach(row => { row.width = row.element.firstElementChild.offsetWidth; }); }
+    measureRows();
+    let marqueeVisible = false;
+    let marqueeHover = false;
+    let marqueeFocus = false;
+    let paused = false;
+    let velocity = 0;
+    ScrollTrigger.create({start:0, end:'max', onUpdate:self => { velocity = self.getVelocity(); }});
+    const rowVisibility = ScrollTrigger.create({trigger:marquee, start:'top bottom', end:'bottom top',
+      onToggle:self => { marqueeVisible = self.isActive; }});
+    marqueeVisible = rowVisibility.isActive;
+    function syncPause() { paused = marqueeHover || marqueeFocus; marquee.classList.toggle('is-paused', paused); }
+    listen(marquee, 'pointerenter', () => { marqueeHover = true; syncPause(); });
+    listen(marquee, 'pointerleave', () => { marqueeHover = false; syncPause(); });
+    listen(marquee, 'focusin', () => { marqueeFocus = true; syncPause(); });
+    listen(marquee, 'focusout', () => { marqueeFocus = false; syncPause(); });
+
+    // Heading skew is bounded, desktop-only, and applied only while on screen.
+    let headingSetters = [];
+    let skew = 0;
+    if (desktop && context.conditions.fine) {
+      $$('.h2').forEach(heading => {
+        const entry = {set:gsap.quickSetter(heading, 'skewY', 'deg'), active:false};
+        const trigger = ScrollTrigger.create({trigger:heading, start:'top bottom', end:'bottom top',
+          onToggle:self => { entry.active = self.isActive; if (!self.isActive) entry.set(0); }});
+        entry.active = trigger.isActive;
+        headingSetters.push(entry);
+      });
+    }
+    function animateAmbient(time, deltaTime) {
+      if (document.hidden) return;
+      const delta = Math.min(deltaTime || 16.67, 40) / 1000;
+      velocity *= Math.exp(-delta * 7);
+      const speed = Math.min(Math.abs(velocity), 4000);
+      if (marqueeVisible) rows.forEach(row => {
+        if (!paused && row.width) row.phase = (row.phase + row.direction * (38 + speed * .065) * delta / row.width + 1) % 1;
+        row.setX((row.phase - 1) * row.width);
+        row.setSkew(paused ? 0 : Math.max(-5, Math.min(5, velocity / 700)) * -row.direction);
+      });
+      const target = Math.max(-1.8, Math.min(1.8, velocity / 1800));
+      if (headingSetters.length && (Math.abs(skew) > .005 || Math.abs(target) > .005)) {
+        skew += (target - skew) * Math.min(1, delta * 12);
+        headingSetters.forEach(entry => { if (entry.active) entry.set(skew); });
+      }
+    }
+    gsap.ticker.add(animateAmbient);
+    function refreshMeasurements() {
+      measureRows();
+      if (lenis) lenis.resize();
+      measurePage();
+    }
+    ScrollTrigger.addEventListener('refresh', refreshMeasurements);
+    refreshPage = () => { ScrollTrigger.refresh(); refreshMeasurements(); };
+
+    cleanups.push(() => {
+      active = false;
+      entrance.kill();
+      gsap.ticker.remove(animateAmbient);
+      if (ticker) gsap.ticker.remove(ticker);
+      if (lenis) lenis.destroy();
+      ScrollTrigger.removeEventListener('refresh', refreshMeasurements);
+      rows.forEach(row => row.clone.remove());
+      headingSetters.forEach(entry => entry.set(0));
+      pin.classList.remove('is-horizontal');
+      marquee.classList.remove('is-paused');
+      cardsFill.style.transform = '';
+      cardCount.textContent = '8 / 8 abandoned';
+      h1.textContent = headline;
+      refreshPage = () => { ScrollTrigger.refresh(); measurePage(); };
+      requestAnimationFrame(measurePage);
+    });
+    return () => cleanups.forEach(cleanup => cleanup());
   });
 
-  // horizontal pinned cards
-  var track=document.getElementById('track');
-  gsap.to(track,{x:function(){return -(track.scrollWidth-window.innerWidth);},ease:'none',
-    scrollTrigger:{trigger:'#pin',pin:true,scrub:1,end:function(){return '+='+track.scrollWidth;},invalidateOnRefresh:true}});
-  gsap.utils.toArray('.card').forEach(function(c,i){
-    gsap.from(c,{rotate:i%2?8:-8,scale:.9,scrollTrigger:{trigger:c,containerAnimation:null,start:'top 100%',end:'top 50%',scrub:true}});
+  mm.add('(hover: hover) and (pointer: fine) and (min-width: 768px) and (prefers-reduced-motion: no-preference)', () => {
+    const cursor = $('#cursor');
+    const glyphs = $$('.glyph');
+    const magnets = $$('.contact-shell');
+    const pointer = {x:-100, y:-100};
+    const rendered = {x:-100, y:-100, scale:1};
+    let pointerMoved = false;
+    let heroVisible = true;
+    let heroProgress = 0;
+    let heroBounds = [];
+    let selected = false;
+    let growing = false;
+    let magnetIndex = -1;
+    let magnetBounds = [];
+    const glyphSetters = glyphs.map(element => ({x:gsap.quickSetter(element, 'x', 'px'), y:gsap.quickSetter(element, 'y', 'px'), dx:0, dy:0}));
+    const magnetSetters = magnets.map(element => ({element:element.firstElementChild,
+      x:gsap.quickSetter(element.firstElementChild, 'x', 'px'), y:gsap.quickSetter(element.firstElementChild, 'y', 'px'), dx:0, dy:0}));
+    const setCursorX = gsap.quickSetter(cursor, 'x', 'px');
+    const setCursorY = gsap.quickSetter(cursor, 'y', 'px');
+    const setCursorScale = gsap.quickSetter(cursor, 'scale');
+    function measurePointer() {
+      // Read untransformed letter parents in one batch, never in pointermove/ticker.
+      heroBounds = glyphs.map(element => {
+        const rect = element.parentElement.getBoundingClientRect();
+        return {x:rect.left + rect.width / 2, y:rect.top + rect.height / 2 + window.scrollY};
+      });
+      magnetBounds = magnets.map(element => {
+        const rect = element.getBoundingClientRect();
+        return {x:rect.left + rect.width / 2, y:rect.top + rect.height / 2 + window.scrollY, width:rect.width, height:rect.height};
+      });
+    }
+    const visible = ScrollTrigger.create({trigger:hero, start:'top bottom', end:'bottom top', onToggle:self => { heroVisible = self.isActive; }});
+    ScrollTrigger.create({trigger:hero, start:'top top', end:'bottom top', onUpdate:self => { heroProgress = self.progress; }});
+    heroVisible = visible.isActive;
+    function move(event) { pointer.x = event.clientX; pointer.y = event.clientY; pointerMoved = true; cursor.style.opacity = '1'; }
+    function over(event) {
+      growing = !!event.target.closest('a, button, .card, .marq');
+      const magnet = event.target.closest('.contact-shell');
+      magnetIndex = magnet ? magnets.indexOf(magnet) : -1;
+    }
+    function leave() { pointerMoved = false; cursor.style.opacity = '0'; magnetIndex = -1; }
+    function down() { selected = true; }
+    function up() { selected = false; }
+    function tick(time, deltaTime) {
+      if (document.hidden) return;
+      const smoothing = 1 - Math.exp(-Math.min(deltaTime || 16.67, 40) / 70);
+      if (pointerMoved) {
+        rendered.x += (pointer.x - rendered.x) * smoothing;
+        rendered.y += (pointer.y - rendered.y) * smoothing;
+        rendered.scale += ((growing ? 2.6 : 1) - rendered.scale) * smoothing;
+        setCursorX(rendered.x - 7); setCursorY(rendered.y - 7); setCursorScale(rendered.scale);
+      }
+      const scrollY = window.scrollY;
+      if (heroVisible) glyphSetters.forEach((setter, i) => {
+        const dx = heroBounds[i].x - pointer.x;
+        const dy = heroBounds[i].y - scrollY - pointer.y;
+        const distance = Math.hypot(dx, dy);
+        const strength = pointerMoved && !selected && heroProgress < .15 ? Math.max(0, 1 - distance / 150) * 14 : 0;
+        setter.dx += ((dx / (distance || 1)) * strength - setter.dx) * smoothing;
+        setter.dy += ((dy / (distance || 1)) * strength - setter.dy) * smoothing;
+        setter.x(setter.dx); setter.y(setter.dy);
+      });
+      magnetSetters.forEach((setter, i) => {
+        const active = i === magnetIndex && pointerMoved && !selected;
+        const bounds = magnetBounds[i];
+        const x = active ? Math.max(-10, Math.min(10, (pointer.x - bounds.x) * .055)) : 0;
+        const y = active ? Math.max(-8, Math.min(8, (pointer.y + scrollY - bounds.y) * .055)) : 0;
+        if (active || Math.abs(setter.dx) > .01 || Math.abs(setter.dy) > .01) {
+          setter.dx += (x - setter.dx) * smoothing; setter.dy += (y - setter.dy) * smoothing;
+          setter.x(setter.dx); setter.y(setter.dy);
+        }
+      });
+    }
+    document.body.classList.add('has-cursor');
+    measurePointer();
+    window.portfolioReady.then(() => requestAnimationFrame(measurePointer));
+    document.addEventListener('pointermove', move, {passive:true});
+    document.addEventListener('pointerover', over, {passive:true});
+    document.documentElement.addEventListener('pointerleave', leave);
+    document.addEventListener('pointerdown', down);
+    document.addEventListener('pointerup', up);
+    window.addEventListener('blur', leave);
+    ScrollTrigger.addEventListener('refresh', measurePointer);
+    gsap.ticker.add(tick);
+    return () => {
+      document.body.classList.remove('has-cursor');
+      document.removeEventListener('pointermove', move);
+      document.removeEventListener('pointerover', over);
+      document.documentElement.removeEventListener('pointerleave', leave);
+      document.removeEventListener('pointerdown', down);
+      document.removeEventListener('pointerup', up);
+      window.removeEventListener('blur', leave);
+      ScrollTrigger.removeEventListener('refresh', measurePointer);
+      gsap.ticker.remove(tick);
+      glyphSetters.forEach(setter => { setter.x(0); setter.y(0); });
+      magnetSetters.forEach(setter => { setter.x(0); setter.y(0); });
+      cursor.style.opacity = '0';
+    };
   });
 
-  // strike-through the things not done
-  gsap.utils.toArray('.nope li').forEach(function(li){
-    gsap.to(li,{'--p':1,ease:'none',scrollTrigger:{trigger:li,start:'top 75%',end:'top 45%',scrub:true}});
-  });
-
-  // marquee reacts to scroll speed
-  var m=document.getElementById('m1'),base=m.textContent;
-  m.textContent=base+base+base;
-  var pos=0,vel=0,w=m.scrollWidth/3;
-  ScrollTrigger.create({onUpdate:function(s){vel=s.getVelocity();}});
-  gsap.ticker.add(function(){
-    pos-=2+Math.abs(vel)*0.01;vel*=0.9;
-    if(-pos>w)pos+=w;
-    gsap.set(m,{x:pos});
-  });
-
-  // meter + sarcastic commentary
-  var last='';
-  ScrollTrigger.create({start:0,end:'max',onUpdate:function(s){
-    var p=s.progress;
-    var v=Math.max(.05,1-p*.95+(Math.sin(p*60)*.06));
-    gsap.to(fill,{scaleX:v,duration:.2,overwrite:true});
-    ml.textContent=pick(labels,p);
-    var l=pick(lines,p);
-    if(l!==last){last=l;gsap.fromTo(say,{y:20,opacity:0},{y:0,opacity:1,duration:.4});say.textContent=l;}
-  }});
-})();
+  // Pin distances and cached widths must use the final webfont metrics.
+  if (document.fonts) {
+    document.fonts.ready.then(() => refreshPage());
+    document.fonts.addEventListener('loadingdone', () => refreshPage());
+  }
+  window.addEventListener('load', () => refreshPage(), {once:true});
+  window.addEventListener('pageshow', () => refreshPage());
+  refreshPage();
+}, {once:true});
 </script>
 </body>
 </html>
